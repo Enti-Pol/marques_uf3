@@ -1,2 +1,2 @@
 # marques_uf3
-Repositori de la asignatura llenguatge de Margues (uf3): Phaser
+Repo de la asignatura de Llenguatge de Marques (UF3): Phaser
