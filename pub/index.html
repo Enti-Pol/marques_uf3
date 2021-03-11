@@ -106,7 +106,7 @@ function precarga ()
 
 	car_list.forEach( car => this.load.image(car.name, PATH_CARS+car.img) );
 	
-	this.load.image("character", PATH_CHARS+"woman.png");
+	this.load.spritesheet("character", PATH_CHARS+"woman_spritesheet.png", {frameWidth: 16, frameHeight: 16});
 	this.load.image("smoke", "https://1.bp.blogspot.com/-g94hIUy1s1Y/VyenqTrty4I/AAAAAAAAB8Q/UKRCYlJjdzcRY8kNVlT3k3ZCXR9W8PPegCLcB/s1600/FireParticleCloudBlack.png");
 }
 
@@ -120,8 +120,12 @@ function crear ()
 
 	car.push(this.physics.add.image(car_right_top_x, car_right_top_y, "car3"));
 	car.push(this.physics.add.image(car_right_bottom_x, car_right_bottom_y, "car4"));
-
-	player = this.physics.add.image(player_init_x, player_init_y, "character");
+		const walkAnimation = this.anims.create({
+			key: 'walk',
+			frames: this.anims.generateFrameNumbers('character'),
+			frameRate: 8
+		});
+	player = this.physics.add.sprite(player_init_x, player_init_y, "character");
 
 	bg.setScale(2);
 
@@ -160,6 +164,7 @@ function crear ()
 		car.forEach(function (element){
 			the_game.physics.add.overlap(player, element, function (p, c){ the_game.scene.restart(); isUp = false; score = 0;}, null, this);
 		});
+
 }
 
 
@@ -186,16 +191,20 @@ function actualiza ()
 		console.log(score);
 	}
 	if (up_key.isDown){
+		player.play("walk", true);
 		player.y--;
 	}
 	else if (down_key.isDown){
+		player.play("walk", true);
 		player.y++;
 	}
 	
 	if (right_key.isDown){
+		player.play("walk", true);
 		player.x++;
 	}
 	else if (left_key.isDown){
+		player.play("walk", true);
 		player.x--;
 	}
 
